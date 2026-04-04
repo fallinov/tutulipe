@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/fonts',
+    'nuxt-studio',
   ],
 
   // Désactiver les appels externes Google Fonts
