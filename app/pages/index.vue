@@ -19,7 +19,7 @@ const services = [
     description: 'Compositions florales pour vos événements, réceptions et espaces professionnels.',
   },
   {
-    icon: 'i-lucide-candle',
+    icon: 'i-lucide-flame',
     title: 'Deuil',
     description: 'Arrangements funéraires élégants et sobres pour accompagner vos moments de recueillement.',
   },
