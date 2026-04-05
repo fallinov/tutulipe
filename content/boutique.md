@@ -3,7 +3,7 @@ title: Boutique — Fleurs de saison
 description: Découvrez nos compositions florales disponibles sur commande.
 ---
 
-## Commandes et livraison
+## Commandes et livraison au Jura
 
 Toutes nos compositions sont réalisées sur commande pour garantir une fraîcheur optimale. Passez votre commande par téléphone ou par email, et récupérez-la à l'atelier ou faites-vous livrer dans la région de Delémont.
 

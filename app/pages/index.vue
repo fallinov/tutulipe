@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const { data: page } = await useAsyncData('home', () => {
+  return queryCollection('content').path('/').first()
+})
+
 const { data: realisations } = await useAsyncData('realisations-home', () => {
   return queryCollection('realisations').limit(3).all()
 })
@@ -7,48 +11,39 @@ const { data: actualites } = await useAsyncData('actualites-home', () => {
   return queryCollection('actualites').limit(2).all()
 })
 
-const services = [
-  {
-    icon: 'i-lucide-heart',
-    title: 'Mariages',
-    description: 'Bouquets de mariée, décorations de cérémonie et centres de table pour votre jour unique.',
-  },
-  {
-    icon: 'i-lucide-flower-2',
-    title: 'Décorations',
-    description: 'Compositions florales pour vos événements, réceptions et espaces professionnels.',
-  },
-  {
-    icon: 'i-lucide-flame',
-    title: 'Deuil',
-    description: 'Arrangements funéraires élégants et sobres pour accompagner vos moments de recueillement.',
-  },
-]
+const iconMap: Record<string, string> = {
+  heart: 'i-lucide-heart',
+  'flower-2': 'i-lucide-flower-2',
+  flame: 'i-lucide-flame',
+  star: 'i-lucide-star',
+  gift: 'i-lucide-gift',
+  leaf: 'i-lucide-leaf',
+}
 </script>
 
 <template>
-  <div>
+  <div v-if="page">
     <!-- Hero -->
     <Hero
-      title="L'art floral au naturel"
-      subtitle="Compositions uniques et créations sur mesure pour sublimer chaque instant de votre vie."
-      image="/images/annie-spratt-150175.jpg"
-      :cta="{ label: 'Nos réalisations', to: '/realisations' }"
+      :title="page.hero_title || 'L\'art floral au naturel'"
+      :subtitle="page.hero_subtitle"
+      :image="page.hero_image || '/images/annie-spratt-150175.jpg'"
+      :cta="page.hero_cta_label ? { label: page.hero_cta_label, to: page.hero_cta_link || '/realisations' } : undefined"
     />
 
     <!-- Services -->
-    <section class="py-20 bg-lavender-50">
+    <section v-if="page.services?.length" class="py-20 bg-lavender-50">
       <UContainer>
         <SectionTitle
-          title="Nos services"
-          subtitle="Un savoir-faire artisanal au service de vos émotions"
+          :title="page.services_title || 'Nos services'"
+          :subtitle="page.services_subtitle"
         />
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <UCard v-for="service in services" :key="service.title" variant="subtle" class="text-center">
+          <UCard v-for="service in page.services" :key="service.title" variant="subtle" class="text-center">
             <div class="flex flex-col items-center gap-4">
               <div class="w-16 h-16 rounded-full bg-peach-100 flex items-center justify-center">
-                <UIcon :name="service.icon" class="text-2xl text-terracotta-500" />
+                <UIcon :name="iconMap[service.icon] || 'i-lucide-flower-2'" class="text-2xl text-terracotta-500" />
               </div>
               <h3 class="font-heading text-2xl text-brown-950">{{ service.title }}</h3>
               <p class="text-brown-600">{{ service.description }}</p>
@@ -91,14 +86,22 @@ const services = [
     </section>
 
     <!-- Témoignage -->
-    <section class="py-20 bg-olive-600 text-white">
+    <section v-if="page.testimonial_quote" class="py-20 bg-olive-600 text-white">
       <UContainer class="text-center max-w-3xl">
         <UIcon name="i-lucide-quote" class="text-4xl text-olive-300 mb-6" />
         <blockquote class="text-xl md:text-2xl italic mb-6 leading-relaxed">
-          &laquo; Tutulipe a transformé notre mariage en un véritable jardin enchanté.
-          Chaque composition était une œuvre d'art. Merci infiniment ! &raquo;
+          &laquo; {{ page.testimonial_quote }} &raquo;
         </blockquote>
-        <p class="text-olive-200 font-semibold">— Marie & Pierre, Mariage été 2024</p>
+        <p class="text-olive-200 font-semibold">— {{ page.testimonial_author }}</p>
+      </UContainer>
+    </section>
+
+    <!-- Contenu libre (Markdown) -->
+    <section class="py-20">
+      <UContainer class="max-w-3xl">
+        <div class="prose prose-lg mx-auto">
+          <ContentRenderer :value="page" />
+        </div>
       </UContainer>
     </section>
 
@@ -138,14 +141,14 @@ const services = [
     </section>
 
     <!-- CTA Contact -->
-    <section class="py-20 bg-terracotta-500 text-white">
+    <section v-if="page.cta_title" class="py-20 bg-terracotta-500 text-white">
       <UContainer class="text-center">
-        <h2 class="font-heading text-4xl md:text-5xl mb-6">Envie d'une création sur mesure ?</h2>
+        <h2 class="font-heading text-4xl md:text-5xl mb-6">{{ page.cta_title }}</h2>
         <p class="text-xl text-terracotta-100 mb-8 max-w-2xl mx-auto">
-          Contactez-nous pour discuter de votre projet. Nous serons ravis de donner vie à vos envies florales.
+          {{ page.cta_text }}
         </p>
         <UButton
-          label="Nous contacter"
+          :label="page.cta_button_label || 'Nous contacter'"
           icon="i-lucide-mail"
           size="xl"
           variant="solid"

@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/fonts',
-    'nuxt-studio',
   ],
 
   // Désactiver les appels externes Google Fonts
@@ -18,18 +17,6 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
-
-  // Nuxt Studio — config du dépôt GitHub
-  studio: {
-    repository: {
-      provider: 'github',
-      owner: 'fallinov',
-      repo: 'tutulipe',
-      branch: 'main',
-    },
-    // Auth GitHub configurée via .env :
-    // STUDIO_GITHUB_CLIENT_ID et STUDIO_GITHUB_CLIENT_SECRET
-  },
 
   // SEO de base
   app: {

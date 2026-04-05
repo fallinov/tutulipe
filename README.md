@@ -1,75 +1,52 @@
-# Nuxt Minimal Starter
+# Tutulipe
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Site vitrine de l'artisan fleuriste **Tutulipe** — Delémont, Suisse.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- [Nuxt 4](https://nuxt.com) — Framework Vue.js
+- [Nuxt UI](https://ui.nuxt.com) — Composants UI (Tailwind CSS v4)
+- [Nuxt Content](https://content.nuxt.com) — Contenu Markdown
+- [Sveltia CMS](https://sveltiacms.app) — Interface d'administration
+
+## Installation
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Développement
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
+
+- Site : http://localhost:3000
+- Admin CMS : http://localhost:3000/admin/ (Chrome requis, "Work with Local Repository")
 
 ## Production
 
-Build the application for production:
-
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+node .output/server/index.mjs
 ```
 
-Locally preview production build:
+Déployé automatiquement sur [Vercel](https://tutulipe.vercel.app) à chaque push sur `main`.
 
-```bash
-# npm
-npm run preview
+## Structure du contenu
 
-# pnpm
-pnpm preview
+Les fichiers Markdown dans `content/` sont éditables via l'interface admin Sveltia CMS :
 
-# yarn
-yarn preview
+| Fichier | Page |
+|---|---|
+| `content/index.md` | Accueil (hero, services, témoignage, CTA) |
+| `content/boutique.md` | Boutique |
+| `content/realisations/*.md` | Réalisations (portfolio) |
+| `content/actualites/*.md` | Articles de blog |
 
-# bun
-bun run preview
-```
+## Souveraineté des données
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Aucune ressource externe en production :
+- Polices servies depuis `public/fonts/`
+- CMS servi depuis `public/admin/sveltia-cms.js`
+- Images dans `public/images/`
