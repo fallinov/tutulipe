@@ -1,6 +1,9 @@
 ---
-title: Tutulipe — L'art floral au naturel
+title: Tutulipe — L'art floral au naturel au Jura
 description: Artisan fleuriste à Delémont, compositions florales pour mariages, deuils et décorations.
+seo:
+  title: Tutulipe — L'art floral au naturel
+  description: Artisan fleuriste à Delémont, compositions florales pour mariages, deuils et décorations.
 ---
 
 # Bienvenue chez Tutulipe
